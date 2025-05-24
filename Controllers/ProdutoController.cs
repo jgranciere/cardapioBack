@@ -40,7 +40,13 @@ namespace AprendendoAPI.Controllers
 
             var imagemUrl = $"https://localhost:7027/imagens/{produtoView.foto.FileName}";
 
+
             var produto = new Produto(produtoView.Nome,produtoView.Preco, produtoView.Descricao, imagemUrl);
+
+            if (produtoView.Descricao.Length > 4)
+            {
+                return BadRequest("A descrição deve ter no maximo 100 caracteres");
+            }
 
             _produtoRepository.Add(produto);
 
