@@ -6,10 +6,12 @@ namespace AprendendoAPI.Models
     [Table("produtos")]
     public class Produto
     {
+        [Key]
         [Column("id")]
         public int Id { get; set; }
 
         [Column("nome")]
+        [MaxLength(50)]
         public string Nome { get; set; }
 
         [Column("descricao")]
@@ -23,6 +25,7 @@ namespace AprendendoAPI.Models
         public string? ImagemUrl { get; set; }
 
         [Column("categoria")]
+        [MaxLength(50)]
         public string? Categoria { get; set; }
 
         public Produto(string nome, decimal preco, string descricao, string imagemUrl)

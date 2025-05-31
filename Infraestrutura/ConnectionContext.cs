@@ -7,12 +7,21 @@ namespace AprendendoAPI.Infraestrutura
     {
         //esqueleto base para conexão com DB
         public DbSet<Produto> Produto { get; set; }
+        public DbSet<ProdutoMaisPedido> ProdutosMaisPedidos { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             => optionsBuilder.UseNpgsql(
-                "Server=localhost;" +
+                "Host=localhost;" +
                 "Port=5432;Database=teste_produtos;" +
-                "User Id=postgres;" +
-                "Password=1234;");
+                "Username=postgres;" +
+                "Password=1234;"+
+                "Search Path=public");
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.HasDefaultSchema("public");  
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

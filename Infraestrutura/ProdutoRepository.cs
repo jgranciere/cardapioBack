@@ -34,6 +34,29 @@ namespace AprendendoAPI.Infraestrutura
             return _context.Produto.FirstOrDefault(p => p.Id == id);
         }
 
+        //TABELA DE MAIS PEDIDOS
 
+        public ProdutoMaisPedido BuscarMaisPedidoPorProdutoId(int id)
+        {
+            return _context.ProdutosMaisPedidos.FirstOrDefault(p => p.ProdutoId == id);
+        }
+
+        public void DeletarProdutoMaisPedido(ProdutoMaisPedido produtoMaisPedido)
+        {
+            _context.ProdutosMaisPedidos.Remove(produtoMaisPedido);
+            _context.SaveChanges();
+        }
+        public void AddProdutoMaisPedido(ProdutoMaisPedido produto)
+        {
+            _context.ProdutosMaisPedidos.Add(produto);
+            _context.SaveChanges();
+        }
+
+        public List<ProdutoMaisPedido> GetTodos()
+        {
+            return _context.ProdutosMaisPedidos.ToList();
+        }
+
+        
     }
 }

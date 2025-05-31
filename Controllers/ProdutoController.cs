@@ -11,14 +11,16 @@ namespace AprendendoAPI.Controllers
     [Route("api/produto")]
     public class ProdutoController : ControllerBase
     {
+        
 
         private readonly IProdutoRepository _produtoRepository;
+        
 
         public ProdutoController(IProdutoRepository produtoRepository)
         {
             _produtoRepository = produtoRepository;
+            
         }
-
 
         [HttpGet]
         public IActionResult Get()
@@ -95,6 +97,7 @@ namespace AprendendoAPI.Controllers
             return Ok(bebida);
         }
 
+
         [HttpGet("bebida")]
         public IActionResult GetBebidas()
         {
@@ -113,6 +116,50 @@ namespace AprendendoAPI.Controllers
             }
 
             return Ok(bebida);
+        }
+
+        [HttpPost("maispedido/{id}")]
+        public IActionResult MarcarComoMaisPedido(int id)
+        {
+            var produto = _produtoRepository.BuscarPorId(id);
+
+            if (produto == null)
+            {
+                return NotFound();
+            }
+
+            var maisPedido = new ProdutoMaisPedido { ProdutoId = id };
+
+            maisPedido.Categoria = "produtoSelecionado";
+
+            _produtoRepository.AddProdutoMaisPedido(maisPedido);
+            return Ok(maisPedido);
+        }
+
+        [HttpDelete("maispedido/{id}")]
+        public IActionResult DeletarProdutoMaisPedido(int id)
+        {
+            var produtoMaisPedido = _produtoRepository.BuscarMaisPedidoPorProdutoId(id);
+
+            if (produtoMaisPedido == null)
+            {
+                return BadRequest("Produto não encontrado");
+            }
+
+            _produtoRepository.DeletarProdutoMaisPedido(produtoMaisPedido);
+            return Ok("removido com sucesso");
+        }
+
+        [HttpGet("maispedido")]
+        public IActionResult GetMaisPedidos()
+        {
+            var maisPedidos = _produtoRepository.GetTodos();
+
+            var produtos = maisPedidos.Select(mp => _produtoRepository.BuscarPorId(mp.ProdutoId))
+                .Where(p => p != null)
+                .ToList();
+
+            return Ok(produtos);
         }
 
 
