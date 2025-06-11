@@ -57,6 +57,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+
 var cultureInfo = new CultureInfo("en-US");
 CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
 CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
