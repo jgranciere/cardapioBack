@@ -44,9 +44,9 @@ namespace AprendendoAPI.Controllers
 
             produto.Categoria = "comida";
 
-            if (produtoView.Descricao.Length > 150)
+            if (produtoView.Descricao.Length > 100)
             {
-                return BadRequest("A descrição deve ter no maximo 100 caracteres");
+                return BadRequest(new { mensagemErro = "A descrição deve ter no maximo 100 caracteres" });
             }
 
             _produtoRepository.Add(produto);
@@ -60,7 +60,7 @@ namespace AprendendoAPI.Controllers
                 imagemUrl = produto.ImagemUrl
             };
 
-            return Ok(produto);
+            return Ok(new { mensagemSucesso = $"Produto {produto.Nome} cadastrado com sucesso!"});
         }
 
         [HttpGet("{id}")]
