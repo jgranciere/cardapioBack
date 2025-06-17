@@ -75,8 +75,8 @@ namespace AprendendoAPI.Controllers
             return Ok(produto);
         }
 
-        [HttpPut]
-        public IActionResult Update(int id, ProdutoViewModel produtoUpdateView)
+        [HttpPut("{id}")]
+        public IActionResult Update(int id, [FromBody] ProdutoViewModel produtoUpdateView)
         {
             var produto = _produtoRepository.BuscarPorId(id);
 
