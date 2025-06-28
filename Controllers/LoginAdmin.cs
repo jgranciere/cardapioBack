@@ -18,7 +18,7 @@ namespace AprendendoAPI.Controllers
         [HttpPost]
         public IActionResult ValidarLoginAdmin([FromBody] LoginAcesso request)
         {
-            if (request.Email == "linoadminpilantra" && request.Password == "palmeiras")
+            if (request.Email == "admin" && request.Password == "admin")
             {
                 var response = new LoginResponse
                 {
